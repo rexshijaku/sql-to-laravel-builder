@@ -35,7 +35,7 @@ use RexShijaku\SQLToLaravelBuilder;
 require_once dirname(__FILE__) . './vendor/autoload.php';
 
 $options = array('facade' => 'DB::');
-$converter = new SQLToLaravelBuilder();
+$converter = new SQLToLaravelBuilder($options);
 
 $sql = "SELECT COUNT(*) FROM members";
 echo $converter->convert($sql);
