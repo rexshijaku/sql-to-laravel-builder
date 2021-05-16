@@ -1,0 +1,29 @@
+{
+  "name": "rexshijaku/sql-to-laravel-builder",
+  "description": "SQL to Laravel Query Builder",
+  "keywords": [
+    "sql-to-builder",
+    "sql-to-laravel",
+    "laravel",
+	"laravel-query",
+    "laravel-database",
+    "active-record"
+  ],
+  "homepage": "https://github.com/rexshijaku/sql-to-laravel-builder",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Rexhep Shijaku",
+      "email": "rexhepshijaku@gmail.com",
+      "homepage": "https://github.com/rexshijaku"
+    }
+  ],
+  "require": {
+    "greenlion/php-sql-parser": "^4.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "RexShijaku\\": "src/"
+    }
+  }
+}
