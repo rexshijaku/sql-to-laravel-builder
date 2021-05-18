@@ -1,4 +1,4 @@
-# Marwan - SQLToLaravelBuilder
+# Marwan - SQL-To-Laravel-Builder
 SQL to Laravel Query Builder, A Converter written in PHP
 
 ### Features
@@ -35,7 +35,7 @@ use RexShijaku\SQLToLaravelBuilder;
 require_once dirname(__FILE__) . './vendor/autoload.php';
 
 $options = array('facade' => 'DB::');
-$converter = new SQLToLaravelBuilder();
+$converter = new SQLToLaravelBuilder($options);
 
 $sql = "SELECT COUNT(*) FROM members";
 echo $converter->convert($sql);
@@ -91,14 +91,23 @@ Some important options are briefly explained below:
 | group  |  boolean | true | Whether it should group key value pairs into a php array, or generate separate commands for each pair. See an example <a href="https://github.com/rexshijaku/sql-to-laravel-builder/tree/main/examples/where.php" target="_blank">here</a>. |
 
 
-### How does it works?
-Will be explained soon.
+### How does it works ?
+SQL-To-Laravel-Builder is built on top of <a href="hhttps://github.com/greenlion/PHP-SQL-Parser">PHP-SQL-Parser</a>. While <a href="hhttps://github.com/greenlion/PHP-SQL-Parser">PHP-SQL-Parser</a> is responsible for parsing the given SQL Query as input. The result of the  <a href="hhttps://github.com/greenlion/PHP-SQL-Parser">PHP-SQL-Parser</a> is the input of SQL-To-Laravel-Builder.
+
+The structure has three main parts : 
+1) Extractors classes - which help to pull out SQL Query parts in a way which are more understandable and processable by Builders. 
+2) Builder classes - which help to construct Query Builder methods.
+3) Creator - which orchestrates the process between Extractors and Builders in order to produce parts of Query Builder.
 
 ### Known issues
-Will be explained soon.
+- It is not tested in all cases. Tests should be added. 
+- Poor error handling.
+
+### Contributions 
+Feel free to contribute on development, testing or eventual bug reporting.
 
 ### Support
-For general questions about Marwan - SQLToLaravelBuilder, tweet at @rexshijaku or write me an email on rexhepshijaku@gmail.com.
+For general questions about Marwan - SQL-To-Laravel-Builder, tweet at @rexshijaku or write me an email on rexhepshijaku@gmail.com.
 To have a quick tutorial check the examples folder provided in the repository.
 
 ### Author
