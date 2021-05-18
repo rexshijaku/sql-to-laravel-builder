@@ -1,6 +1,6 @@
 <?php
 
-namespace RexShijaku\extractors;
+namespace RexShijaku\SQLToLaravelBuilder\extractors;
 /**
  * This class extracts and compiles SQL query parts for the following Query Builder methods :
  *

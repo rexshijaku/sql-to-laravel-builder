@@ -1,6 +1,6 @@
 <?php
 
-namespace RexShijaku;
+namespace RexShijaku\SQLToLaravelBuilder;
 
 use PHPSQLParser\PHPSQLParser;
 

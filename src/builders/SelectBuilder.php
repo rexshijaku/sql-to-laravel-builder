@@ -1,8 +1,8 @@
 <?php
 
-namespace RexShijaku\builders;
+namespace RexShijaku\SQLToLaravelBuilder\builders;
 
-use RexShijaku\utils\SelectQueryTypes;
+use RexShijaku\SQLToLaravelBuilder\utils\SelectQueryTypes;
 
 /**
  * This class constructs and produces following Query Builder methods :

@@ -23,7 +23,7 @@
   },
   "autoload": {
     "psr-4": {
-      "RexShijaku\\": "src/"
+      "RexShijaku\\SQLToLaravelBuilder\\": "src/"
     }
   }
 }

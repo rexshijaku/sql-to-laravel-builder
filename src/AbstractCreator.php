@@ -1,7 +1,7 @@
 <?php
 
 
-namespace RexShijaku;
+namespace RexShijaku\SQLToLaravelBuilder;
 
 /**
  * This class provides additional functionality for the Creator class.

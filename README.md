@@ -47,21 +47,37 @@ DB::table('members')->count();
 ##### A more complex example :
 
 ```php
-$sql = "SELECT * FROM members WHERE ( age = 25 OR ( salary = 2000 AND gender = 'm' ) ) AND id > 15";
+$sql = "SELECT
+                department_id,
+                count(*) 
+            FROM
+                members
+                LEFT JOIN details AS d ON d.member_id = members.member_id 
+            WHERE
+                ( age = 25 OR ( salary = 2000 AND gender = 'm' ) ) 
+                AND id > 15 
+            GROUP BY
+                department_id 
+            HAVING
+                height > 1.60";
 echo $converter->convert($sql);
 ```
 and this will generate the result below :
 ```php
 DB::table('members')
- ->where(function ($query) {
-     $query->where('age', '=', 25)
-         ->orWhere(function ($query) {
-             $query->where('salary', '=', 2000)
-                 ->where('gender', '=', 'm');
-         });
- })
- ->where('id', '>', 15)
- ->get();
+    ->select('department_id', DB::raw('count(*)'))
+    ->leftJoin('details AS d', 'd.member_id', '=', 'members.member_id')
+    ->where(function ($query) {
+        $query->where('age', '=', 25)
+              ->orWhere(function ($query) {
+                            $query->where('salary', '=', 2000)
+                                  ->where('gender', '=', 'm');
+        });
+    })
+    ->where('id', '>', 15)
+    ->groupBy('department_id')
+    ->having('height', '>', 1.60)
+    ->get();
 ```
 ##### Notice 
 If you need to change options, or get more comprehensive understanding of provided options then see the following section of Options.

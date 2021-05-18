@@ -1,8 +1,8 @@
 <?php
 
-namespace RexShijaku\extractors;
+namespace RexShijaku\SQLToLaravelBuilder\extractors;
 
-use RexShijaku\utils\SelectQueryTypes;
+use RexShijaku\SQLToLaravelBuilder\utils\SelectQueryTypes;
 
 /**
  * This class extracts and compiles SQL query parts for the following Query Builder methods :

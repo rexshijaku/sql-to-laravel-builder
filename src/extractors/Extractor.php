@@ -1,6 +1,6 @@
 <?php
 
-namespace RexShijaku\extractors;
+namespace RexShijaku\SQLToLaravelBuilder\extractors;
 
 /**
  *  Extractor.php

@@ -1,30 +1,30 @@
 <?php
 
-namespace RexShijaku;
+namespace RexShijaku\SQLToLaravelBuilder;
 
-use RexShijaku\builders\CriterionBuilder;
-use RexShijaku\builders\DeleteBuilder;
-use RexShijaku\builders\FromBuilder;
-use RexShijaku\builders\GroupByBuilder;
-use RexShijaku\builders\HavingBuilder;
-use RexShijaku\builders\InsertBuilder;
-use RexShijaku\builders\JoinBuilder;
-use RexShijaku\builders\LimitBuilder;
-use RexShijaku\builders\OrderBuilder;
-use RexShijaku\builders\SelectBuilder;
-use RexShijaku\builders\UnionBuilder;
-use RexShijaku\builders\UpdateBuilder;
-use RexShijaku\extractors\CriterionExtractor;
-use RexShijaku\extractors\DeleteExtractor;
-use RexShijaku\extractors\FromExtractor;
-use RexShijaku\extractors\GroupByExtractor;
-use RexShijaku\extractors\HavingExtractor;
-use RexShijaku\extractors\InsertExtractor;
-use RexShijaku\extractors\JoinExtractor;
-use RexShijaku\extractors\LimitExtractor;
-use RexShijaku\extractors\OrderExtractor;
-use RexShijaku\extractors\SelectExtractor;
-use RexShijaku\extractors\UpdateExtractor;
+use RexShijaku\SQLToLaravelBuilder\builders\CriterionBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\DeleteBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\FromBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\GroupByBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\HavingBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\InsertBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\JoinBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\LimitBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\OrderBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\SelectBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\UnionBuilder;
+use RexShijaku\SQLToLaravelBuilder\builders\UpdateBuilder;
+use RexShijaku\SQLToLaravelBuilder\extractors\CriterionExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\DeleteExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\FromExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\GroupByExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\HavingExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\InsertExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\JoinExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\LimitExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\OrderExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\SelectExtractor;
+use RexShijaku\SQLToLaravelBuilder\extractors\UpdateExtractor;
 
 /**
  * This class orchestrates the process between Extractors and Builders in order to produce parts of Query Builder and arranges them

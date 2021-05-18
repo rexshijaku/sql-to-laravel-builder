@@ -1,6 +1,6 @@
 <?php
 
-use RexShijaku\SQLToLaravelBuilder;
+use RexShijaku\SQLToLaravelBuilder\SQLToLaravelBuilder;
 
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
