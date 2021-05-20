@@ -175,11 +175,13 @@ class Creator extends AbstractCreator
         $this->qb = $builder->build($parts);
     }
 
-    function getQuery($sql)
+    function getQuery($sql, $add_facade = false)
     {
         $this->qb .= $this->lastly;
         if (empty($this->qb)) {
-            $this->qb .= $this->options['facade'] . "statement('" . $sql . "')";
+            if ($add_facade)
+                $this->qb .= $this->options['facade'];
+            $this->qb .= "statement('" . $sql . "')";
         } else {
             if (!$this->qb_closed)
                 $this->qb .= $this->in_union ? '' : '->get()';
