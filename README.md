@@ -12,7 +12,7 @@ Laravel 8
 ### Demo
 
 ##### Online demo
-Live demo and free usage will be available soon.
+Live demo and free usage is available <a href='https://sql-to-laravel-builder.herokuapp.com/'>here</a>.
 
 ### Get Started
 ##### Install by manual download: 
@@ -108,7 +108,7 @@ Feel free to contribute on development, testing or eventual bug reporting.
 
 ### Support
 For general questions about Marwan - SQL-To-Laravel-Builder, tweet at @rexshijaku or write me an email on rexhepshijaku@gmail.com.
-To have a quick tutorial check the examples folder provided in the repository.
+To have a quick tutorial check the  <a href="https://github.com/rexshijaku/sql-to-laravel-builder/tree/main/examples" target="_blank">examples</a> folder provided in the repository.
 
 ### Author
 ##### Rexhep Shijaku
