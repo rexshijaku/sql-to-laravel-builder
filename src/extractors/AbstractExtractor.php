@@ -121,10 +121,18 @@ abstract class AbstractExtractor
 
     protected function getWithAlias($val)
     {
-        $composed = $val['base_expr'];
-        if ($val['alias'] !== false)
-            $composed .= ' ' . $val['alias']['base_expr'];
-        return $composed;
+        if ($val['expr_type'] === 'table')
+            $return = $val['table']; // no alias here, if any, it will be added at the end
+        else {
+            if ($val['expr_type'] == 'subquery') {
+                $return = '(' . $val['base_expr'] . ')';
+            } else {
+                $return = $val['base_expr'];
+            }
+        }
+        if ($this->hasAlias($val))
+            $return .= ' ' . $val['alias']['base_expr'];
+        return $return;
     }
 
     public function isRaw($val)
