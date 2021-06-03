@@ -2,6 +2,7 @@
 
 namespace RexShijaku\SQLToLaravelBuilder\extractors;
 
+use RexShijaku\SQLToLaravelBuilder\utils\CriterionContext;
 /**
  * This class extracts and compiles SQL query parts for the following Query Builder methods :
  *
@@ -26,41 +27,28 @@ class JoinExtractor extends AbstractExtractor implements Extractor
             if (!$this->validJoin($val['join_type'])) // skip joins such as natural
                 continue;
 
-            $join_table = $this->getTableVal($val);
+            $is_raw_table = false;
+            $join_table = $this->getWithAlias($val, $is_raw_table);
 
-            $separators = array();
-            $condition_value = array();
-            if ($val['ref_clause'] !== false) {
-                foreach ($val['ref_clause'] as $r) {
-                    if ($r['expr_type'] == 'operator')
-                        $separators[] = $r['base_expr'];
-                    else
-                        $condition_value[] = $r['base_expr'];
-                }
-            }
-
-            $join = array('table' => $join_table,
-                'condition_fields' => $condition_value,
-                'condition_separators' => $separators,
+            $join = array(
+                'table' => $join_table,
+                'table_is_raw' => $is_raw_table,
                 'type' => $val['join_type']
             );
+
+            if ($val['ref_clause'] !== false)
+                $join['on_clause'] = $this->getOnCriterion($val['ref_clause']);
+
             $joins[] = $join;
         }
         return $joins;
     }
 
-    private function getTableVal($val)
+    private function getOnCriterion($val)
     {
-        if ($val['expr_type'] == 'table')
-            $return = $val['table'];
-        else {
-            if ($val['expr_type'] == 'subquery') {
-                $return = '(' . $val['base_expr'] . ')';
-            } else
-                $return = $val['base_expr'];
-        }
-        if ($this->hasAlias($val))
-            $return .= ' ' . $val['alias']['base_expr'];
-        return $return;
+        $parts = array();
+        $criterion = new CriterionExtractor($this->options);
+        $criterion->getCriteriaParts($val, $parts, CriterionContext::Join);
+        return $parts;
     }
 }

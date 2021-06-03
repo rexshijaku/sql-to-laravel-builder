@@ -104,6 +104,13 @@ class CriterionBuilder extends AbstractBuilder implements Builder
                     $fn = $this->getValue($part['sep']) == 'or' ? 'orWhereRaw' : 'whereRaw';
                     $query_val .= '->' . $fn . '(' . $this->quote($part['field'] . ' AGAINST ' . $part['value']) . ')';
                     break;
+                case CriterionTypes::Function:
+                    $fn = $this->getValue($part['sep']) == 'or' ? 'orWhere' : 'where';
+                    $fn = $this->fnMerger(array($fn, $part['fn']));
+                    $op = $part['operator'];
+                    $inner = $this->quote($part['field']) . ',' . $this->quote(strtoupper($op)) . ',' . $this->wrapValue($part['value']['value']);
+                    $query_val .= '->' . $fn . '(' . $inner . ')';
+                    break;
                 default:
                     break;
             }

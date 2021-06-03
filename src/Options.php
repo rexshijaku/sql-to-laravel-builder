@@ -10,6 +10,7 @@ class Options
         'facade' => 'DB::',
         'group' => true
     );
+    private $supporting_fn = array('date', 'month', 'year' ,'day', 'time');
 
     public function __construct($options)
     {
@@ -31,6 +32,7 @@ class Options
 
         unset($this->options['settings']); // unset reserved
         $this->options['settings']['agg'] = $this->aggregate_fn;
+        $this->options['settings']['fns'] = $this->supporting_fn;
     }
 
     public function get()

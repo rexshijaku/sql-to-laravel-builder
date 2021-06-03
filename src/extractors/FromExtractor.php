@@ -34,12 +34,9 @@ class FromExtractor extends AbstractExtractor implements Extractor
 
     function extractSingle($value)
     {
-        return array('table' => $this->getTable($value), 'is_raw' => $value[0]['expr_type'] != 'table');
-    }
-
-    private function getTable($value)
-    {
-        return $this->getWithAlias($value[0]);
+        $is_raw = $value[0]['expr_type'] != 'table';
+        $table = $this->getWithAlias($value[0], $is_raw);
+        return array('table' => $table, 'is_raw' => $is_raw);
     }
 
 }

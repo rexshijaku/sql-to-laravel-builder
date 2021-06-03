@@ -81,7 +81,8 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                             'value' => $res_value['value'],
                             'raw_field' => $res_field['is_raw'],
                             'raw_value' => $res_value['is_raw'],
-                            'sep' => $logical_operator
+                            'sep' => $logical_operator,
+                            'const_value' => $res_value['is_const']
                         );
                         break;
                     case 'is':
@@ -89,7 +90,7 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                         $this->handle_outer_negation = true;
 
                         $res_field = $this->getLeft($index, $value);
-                        $res_value = $this->getRight($index, $value, $curr_index);
+                        $res_value = $this->getRight($index, $value, $curr_index, $context);
 
                         $operators_ = array('is');
                         if ($res_value['has_negation'])
@@ -102,7 +103,9 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                             'value' => $res_value['value'],
                             'raw_field' => $res_field['is_raw'],
                             'raw_value' => $res_value['is_raw'],
-                            'sep' => $logical_operator); // now combine fields + operators
+                            'sep' => $logical_operator,
+                            'const_value' => $res_value['is_const']
+                            ); // now combine fields + operators
                         break;
                     case "between":
                         $btw_operators = array();
@@ -131,7 +134,7 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                         $like_operators[] = 'like';
 
                         $res_field = $this->getLeft($index, $value);
-                        $res_val = $this->getRight($index, $value, $curr_index);
+                        $res_val = $this->getRight($index, $value, $curr_index, $context);
 
 
                         $parts[] = array(
@@ -141,7 +144,8 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                             'value' => $res_val['value'],
                             'raw_field' => $res_field['is_raw'],
                             'raw_value' => $res_val['is_raw'],
-                            'sep' => $logical_operator);
+                            'sep' => $logical_operator,
+                            'const_value' => $res_val['is_const']);
                         break;
                     case "in":
 
@@ -161,8 +165,8 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                             'raw_field' => $res_field['is_raw'],
                             'raw_value' => $res_val['is_raw'],
                             'sep' => $logical_operator,
-                            'as_php_arr' => $res_val['value_type'] == 'in-list'
-                        );
+                            'as_php_arr' => $res_val['value_type'] == 'in-list',
+                            'const_value' => $res_val['is_const']);
 
                         break;
                     case "not":
@@ -196,6 +200,37 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                         'sep' => $logical_operator
                     );
 
+                } else if (CriterionContext::Where == $context) {
+                    $fn = $this->getValue($val['base_expr']);
+
+                    if (in_array($fn, $this->options['settings']['fns'])) {
+
+                        if($val['sub_tree'] !== false && $this->isRaw($val['sub_tree'][0]))
+                            continue;
+
+                        $params = ''; // params is field in this context
+                        $this->getFnParams($val, $params);
+
+                        $temp_index = $curr_index;
+                        $curr_index = $index = ($index + 1); // move to operator
+                        $sep = $this->getValue($value[$curr_index]['base_expr']);
+                        $res_val = $this->getRight($index, $value, $curr_index, $context);
+
+                        if ($res_val['is_raw']) {
+                            $curr_index = $index = $temp_index;
+                            continue;
+                        }
+
+
+                        $parts[] = array(
+                            'type' => CriterionTypes::Function,
+                            'fn' => $fn,
+                            'field' => $params,
+                            'value' => $res_val,
+                            'operator' => $sep,
+                            'sep' => $logical_operator
+                        );
+                    }
                 }
 
             }
@@ -307,6 +342,8 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
         $right_operator = '';
         $is_raw = false;
 
+        $is_const = null;
+
         while (!$this->isLogicalOperator($right_operator)) { // x > 2 and (until you find first logical operator keep looping)
             $right_ind++;
             if ($right_ind < count($value)) {
@@ -317,7 +354,10 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                         $right_operator = $this->getValue($value[$right_ind]['base_expr']);
                     else {
                         $value_ .= $value[$right_ind]['base_expr'];
-                        $is_raw = true; // if some operation is happening then the expression should not be escaped
+                        if ($context === CriterionContext::Join) // because on x=x+5, x+5 is escaped entirely !
+                            $is_const = false;
+                        else
+                            $is_raw = true; // if some operation is happening then the expression should not be escaped
                     }
 
                     if ($right_operator == 'not')
@@ -329,8 +369,21 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                     break;
                 } else {
                     $value_type = $value[$right_ind]['expr_type'];
-                    if ($value[$right_ind]['expr_type'] != 'const')
-                        $is_raw = true;
+                    if ($context === CriterionContext::Join) { // on x = y (both x,y must be column)
+                        if ($value[$right_ind]['expr_type'] != 'colref')
+                            $is_raw = true;
+
+                        if (!isset($is_const)) {
+                            if ($value[$right_ind]['expr_type'] == 'const')
+                                $is_const = true;
+                            else
+                                $is_const = false;
+                        }
+
+                    } else {
+                        if ($value[$right_ind]['expr_type'] != 'const')
+                            $is_raw = true;
+                    }
 
                     if ($value_type == 'subquery')
                         $value_type = 'field_only';
@@ -342,7 +395,8 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                 break;
         }
         $curr_index = $right_ind;
-        return array('value' => $value_, 'has_negation' => $has_negation, 'is_raw' => $is_raw, 'value_type' => $value_type);
+        return array('value' => $value_, 'has_negation' => $has_negation,
+            'is_raw' => $is_raw, 'value_type' => $value_type, 'is_const' => $is_const);
     }
 
     private function getBetweenValue($index, $value, &$curr_index)

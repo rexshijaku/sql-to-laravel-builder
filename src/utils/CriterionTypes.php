@@ -12,4 +12,5 @@ class CriterionTypes
     const InFieldValue = 'in_field_value';
     const Is = 'is';
     const Like = 'like';
+    const Function = 'fn';
 }

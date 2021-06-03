@@ -119,7 +119,7 @@ abstract class AbstractExtractor
         return (implode('', $parts));
     }
 
-    protected function getWithAlias($val)
+    protected function getWithAlias($val, &$is_raw)
     {
         if ($val['expr_type'] === 'table')
             $return = $val['table']; // no alias here, if any, it will be added at the end
@@ -130,8 +130,12 @@ abstract class AbstractExtractor
                 $return = $val['base_expr'];
             }
         }
-        if ($this->hasAlias($val))
-            $return .= ' ' . $val['alias']['base_expr'];
+        if ($this->hasAlias($val)) {
+            $return .= ' ';
+            if ($val['alias']['as'] === false) // because Laravel escapes 'table t' expressions entirely!
+                $is_raw = true;
+            $return .= $val['alias']['base_expr'];
+        }
         return $return;
     }
 
