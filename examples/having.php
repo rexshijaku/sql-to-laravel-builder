@@ -19,10 +19,11 @@ echo $converter->convert($sql);
 
 //==========================================================
 
-$sql = "SELECT age FROM members HAVING age+20 > 25";
+$sql = "SELECT age FROM members HAVING age+20 > 45";
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')
+//              ->select('age')
 //              ->havingRaw('age+20 > ?', [45])
 //              ->get();
 
@@ -60,11 +61,11 @@ $sql = "SELECT name,age,salary,gender FROM members HAVING name like '%R' AND gen
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')
-//              ->select('name', 'age', 'salary', 'gender')
-//              ->having('name', 'like', '%R')
-//              ->having('gender', '=', 'm')
-//              ->orHaving('salary', '>', 1000)
-//              ->having('age', '>=', 25)
-//              ->havingRaw('age+2 = ?', [25])
+//              ->select('name','age','salary','gender')
+//              ->having('name','like','%R')
+//              ->having('gender','=','m')
+//              ->orHaving('salary','>',1000)
+//              ->having('gender','=',0)
+//              ->havingRaw('age+2 = ?',[25])
 //              ->get();
 //==========================================================

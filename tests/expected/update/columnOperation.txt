@@ -1,0 +1,1 @@
+DB::table('members')->where('id','=',2)->update(['age'=>DB::raw('age+10')]);

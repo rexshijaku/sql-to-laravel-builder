@@ -1,0 +1,1 @@
+DB::table('members')->select('age','salary')->having('age','>',25)->having('salary','<',3000)->get();

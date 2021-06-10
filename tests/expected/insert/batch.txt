@@ -1,0 +1,1 @@
+DB::table('members')->insert([['name'=>'Jökull','surname'=>'Júlíusson','age'=>30],['name'=>'David','surname'=>'Antonsson','age'=>null],['name'=>'Daniel','surname'=>'Kristjansson','age'=>null],['name'=>'Rubin','surname'=>'Pollock','age'=>null],['name'=>'Þorleifur Gaukur','surname'=>'Davíðsson','age'=>null]]);

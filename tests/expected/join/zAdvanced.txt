@@ -1,0 +1,1 @@
+DB::table('members')->join('details',function($join) {$join->on('members.id','=','details.members_id')->where('age','>',10)->whereNotBetween('age',[10,20])->whereNotNull('title')->whereRaw(' NOT age > ? ', [10])->where('NAME','LIKE','%Jo%')->whereNotIn('age',[10,20,30]); })->leftJoin(DB::raw('further_details fd'),'details.id','=','fd.details_id')->get();

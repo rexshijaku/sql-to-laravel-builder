@@ -1,0 +1,1 @@
+DB::table('members')->whereNotIn('age',[20,30])->get();

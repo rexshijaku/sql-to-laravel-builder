@@ -78,7 +78,7 @@ abstract class AbstractExtractor
         foreach ($value as $k => $val) {
 
             if (in_array($val['expr_type'], array('function', 'aggregate_function'))) { // base expressions are not enough in such cases
-                $local_parts[] = $val['base_expr'];
+                $local_parts = array($val['base_expr']);
                 $local_parts[] = '('; // e.g function wrappers
                 if ($val['sub_tree'] !== false) { // functions + agg fn and others
                     $this->getExpressionParts($val['sub_tree'], $local_parts, $raws, true);

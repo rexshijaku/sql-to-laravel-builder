@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 //==========================================================
 
 $converter = new SQLToLaravelBuilder();
-$sql = "SELECT * FROM members WHERE age > 25 UNION SELECT * FROM members WHERE name like %ius%";
+$sql = "SELECT * FROM members WHERE age > 25 UNION SELECT * FROM members WHERE name like '%ius%'";
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')

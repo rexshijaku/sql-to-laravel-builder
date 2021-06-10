@@ -22,6 +22,6 @@ $sql = "SELECT age, some_function(),count(*) FROM members GROUP BY age, some_fun
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')
-//              ->select('age', some_function(), DB::raw('some_function()'),DB::raw('count(*)'))
+//              ->select('age',DB::raw('some_function()'),DB::raw('count(*)'))
 //              ->groupByRaw('age, some_function()')
 //              ->get();

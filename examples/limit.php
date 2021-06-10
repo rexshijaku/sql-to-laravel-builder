@@ -8,7 +8,7 @@ $converter = new SQLToLaravelBuilder();
 
 //==========================================================
 
-$sql = "SELECT * FROM members LIMIT 2";
+$sql = "SELECT * FROM members LIMIT 1";
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')

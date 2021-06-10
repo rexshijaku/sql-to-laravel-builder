@@ -1,0 +1,1 @@
+DB::table('members')->where('id','>',100)->offset(20)->limit(10)->get();

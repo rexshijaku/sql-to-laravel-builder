@@ -13,7 +13,7 @@ echo $converter->convert($sql);
 // prints
 //          DB::table('members')
 //              ->where('id', '=', 2)
-//              ->update(['age' => 34]);
+//              ->update(['age' => 10]);
 
 //==========================================================
 

@@ -1,0 +1,1 @@
+DB::table('members')->havingRaw('age+20 > ?',[45])->orHavingRaw('salary-200 > ?',[500])->get();

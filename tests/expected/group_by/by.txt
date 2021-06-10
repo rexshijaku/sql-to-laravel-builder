@@ -1,0 +1,1 @@
+DB::table('members')->select('age','salary',DB::raw('count(*)'))->groupBy(['age','salary'])->get();

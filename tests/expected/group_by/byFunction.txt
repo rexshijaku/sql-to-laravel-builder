@@ -1,0 +1,1 @@
+DB::table('members')->select('age',DB::raw('some_function()'),DB::raw('count(*)'))->groupByRaw('age, some_function()')->get();

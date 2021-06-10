@@ -34,12 +34,17 @@ echo $converter->convert($sql);
 
 //==========================================================
 
-$sql = "DELETE FROM members WHERE not (age>10 AND salary > 2000)";
+$sql = "DELETE FROM members WHERE NOT (age>10 AND salary > 2000 OR age>9) OR NOT (age < 10)";
 
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')
-//              ->where([['age','>',10],['salary','>',2000]])
+//              ->where(function ($query) {
+//                  $query->where('age', '>', 10)->where('salary', '>', 2000)->orWhere('age', '>', 9);
+//              }, null, null, 'and not')
+//              ->where(function ($query) {
+//                  $query->where('age', '<', 10);
+//              }, null, null, 'or not')
 //              ->delete();
 
 //==========================================================

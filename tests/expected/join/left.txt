@@ -1,0 +1,1 @@
+DB::table('members')->leftJoin('details','members.id','=','details.members_id')->get();

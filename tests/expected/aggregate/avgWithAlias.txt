@@ -1,0 +1,1 @@
+DB::table('members')->selectRaw('AVG(age) AS avg_member_age')->get();

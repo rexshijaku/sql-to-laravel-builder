@@ -50,7 +50,7 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
         return false;
     }
 
-    function getCriteriaParts($value, &$parts = array(), $context = CriterionContext::Where)
+    function getCriteriaParts($value, &$parts = array(), $context = CriterionContext::Where, $handle_outer_negation = true)
     {
         $sep = '';
         $curr_index = 0;
@@ -70,7 +70,7 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
 
                 switch ($this->getValue($sep)) {
                     case $this->isComparisonOperator($sep):
-                        $this->handle_outer_negation = true;
+                        $this->handle_outer_negation = $handle_outer_negation;
                         $res_field = $this->getLeft($index, $value, $context);
                         $res_value = $this->getRight($index, $value, $curr_index, $context);
 
@@ -87,7 +87,7 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                         break;
                     case 'is':
 
-                        $this->handle_outer_negation = true;
+                        $this->handle_outer_negation = $handle_outer_negation;
 
                         $res_field = $this->getLeft($index, $value);
                         $res_value = $this->getRight($index, $value, $curr_index, $context);
@@ -180,11 +180,12 @@ class CriterionExtractor extends AbstractExtractor implements Extractor
                 $local = array();
 
                 if ($val['sub_tree'] !== false) { // skip cases such ()
-                    $this->getCriteriaParts($val['sub_tree'], $local, $context); // recursion
+                    $negation_on = $this->negation_on;
+                    $this->getCriteriaParts($val['sub_tree'], $local, $context,false); // recursion
                     if (!empty($local)) {
-                        $parts[] = array('type' => CriterionTypes::Group, 'se' => 'start', 'subtype' => $sep);
+                        $parts[] = array('type' => CriterionTypes::Group, 'se' => 'start', 'has_negation' => $negation_on, 'log' => $logical_operator);
                         $parts = array_merge($parts, $local);
-                        $parts[] = array('type' => CriterionTypes::Group, 'se' => 'end');
+                        $parts[] = array('type' => CriterionTypes::Group, 'se' => 'end', 'has_negation' => $negation_on, 'log' => $logical_operator);
                     }
                 }
 

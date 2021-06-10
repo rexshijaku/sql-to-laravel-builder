@@ -1,0 +1,1 @@
+DB::table('members')->havingRaw('age NOT BETWEEN 25 AND 35')->get();

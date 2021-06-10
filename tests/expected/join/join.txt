@@ -1,0 +1,1 @@
+DB::table('members')->join('details','members.id','=','details.members_id')->get();

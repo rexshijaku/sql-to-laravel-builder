@@ -1,0 +1,1 @@
+DB::table('members')->where('name','LIKE','%j%')->where('surname','LIKE','j%')->orWhere('title','NOT LIKE','%gui')->get();

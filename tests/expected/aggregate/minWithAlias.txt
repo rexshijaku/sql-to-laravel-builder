@@ -1,0 +1,1 @@
+DB::table('members')->selectRaw('MIN(age) AS age')->get();

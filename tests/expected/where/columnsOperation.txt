@@ -1,0 +1,1 @@
+DB::table('members')->whereRaw('age+0 = age')->get();

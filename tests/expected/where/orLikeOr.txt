@@ -1,0 +1,1 @@
+DB::table('members')->whereRaw('age+0 = age')->orWhere('name','LIKE','%j%')->orWhereRaw('id+2 > id+5')->get();

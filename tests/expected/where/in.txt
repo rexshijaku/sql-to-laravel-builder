@@ -1,0 +1,1 @@
+DB::table('members')->whereIn('age',[20,30])->get();

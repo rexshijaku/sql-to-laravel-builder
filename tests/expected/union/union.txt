@@ -1,0 +1,1 @@
+DB::table('members')->where('age','>',25)->union(DB::table('members')->where('name','LIKE','%ius%'))->get();

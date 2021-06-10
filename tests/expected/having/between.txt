@@ -1,0 +1,1 @@
+DB::table('members')->havingBetween('age',[25,35])->get();

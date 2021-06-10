@@ -1,0 +1,1 @@
+DB::table(DB::raw('members'))->where(function ($query) { $query->where('age','=',25)->orWhere(function ($query) { $query->where('salary','=',2000)->where('gender','=','m');});})->where('id','>',100800)->get();

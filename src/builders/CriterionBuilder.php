@@ -134,12 +134,23 @@ class CriterionBuilder extends AbstractBuilder implements Builder
             $fn = '';
             if ($part['se'] == 'start') {
                 $query_val .= "->";
-                if ($part['subtype'] == 'or')
-                    $fn = 'orWhere(function ($query) { $query';
-                else
+
+                if ($part['has_negation']) {  // when not is before group, only where can be used!
                     $fn = 'where(function ($query) { $query';
-            } else if ($part['se'] == 'end')
-                $fn = ';})';
+                } else {
+                    if ($part['log'] == 'or')
+                        $fn = 'orWhere(function ($query) { $query';
+                    else
+                        $fn = 'where(function ($query) { $query';
+                }
+
+
+            } else if ($part['se'] == 'end') {
+                if ($part['has_negation'])
+                    $fn = ';},null,null,\'' . $part['log'] . ' ' . 'not' . '\')'; // see https://github.com/laravel/ideas/issues/708
+                else
+                    $fn = ';})';
+            }
 
             $query_val .= $fn;
         }

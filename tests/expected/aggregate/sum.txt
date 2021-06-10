@@ -1,0 +1,1 @@
+DB::table('members')->selectRaw('SUM(age) AS sum_age')->get();

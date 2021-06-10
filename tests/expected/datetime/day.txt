@@ -1,0 +1,1 @@
+DB::table('members')->whereDay('created_at','=',15)->get();

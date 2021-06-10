@@ -19,7 +19,7 @@ $sql = 'SELECT MAX(age) as age FROM members';
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')
-//              ->selectRaw('max(age) AS age')
+//              ->selectRaw('MAX(age) AS age')
 //              ->get();
 
 //==========================================================
@@ -28,7 +28,7 @@ $sql = 'SELECT MIN(age) as age FROM members';
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')
-//              ->selectRaw('min(age) AS age')
+//              ->selectRaw('MIN(age) AS age')
 //              ->get();
 
 //==========================================================
@@ -44,7 +44,7 @@ $sql = 'SELECT AVG(age) as avg_member_age FROM members';
 echo $converter->convert($sql);
 // prints
 //          DB::table('members')
-//              ->selectRaw('avg(age) AS avg_member_age')
+//              ->selectRaw('AVG(age) AS avg_member_age')
 //              ->get();
 
 //==========================================================
@@ -54,7 +54,7 @@ $sql = 'SELECT SUM(age) as sum_age FROM members';
 echo $converter->convert($sql);
 // prints
 //      DB::table('members')
-//          ->selectRaw('sum(age) AS sum_age')
+//          ->selectRaw('SUM(age) AS sum_age')
 //          ->get();
 
 //==========================================================

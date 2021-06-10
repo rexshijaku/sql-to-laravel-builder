@@ -1,0 +1,1 @@
+DB::table('members')->where('age','>',10)->delete();
