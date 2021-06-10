@@ -1,4 +1,4 @@
-# Marwan - SQL-To-Laravel-Builder
+# Marwan - SQL To Laravel Builder
 SQL to Laravel Query Builder, A Converter written in PHP
 
 ### Features
@@ -100,7 +100,7 @@ The structure has three main parts :
 3) Creator - which orchestrates the process between Extractors and Builders in order to produce parts of Query Builder.
 
 ### Known issues
-- It is not tested in all cases. Tests should be added. 
+- It is not tested in all cases.
 - Poor error handling.
 
 ### Contributions 
