@@ -1,0 +1,1 @@
+DB::table('members')->where('is_active','=',0)->count();

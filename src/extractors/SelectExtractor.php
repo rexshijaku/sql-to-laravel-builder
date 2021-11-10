@@ -28,7 +28,7 @@ class SelectExtractor extends AbstractExtractor implements Extractor
             array_shift($value);
 
         if ($this->isSingleTable($parsed) &&
-            $this->isCountTable($value)) {
+            $this->isCountTable($value) && $this->validCountTable($parsed)) {
 
             return array('s_type' => SelectQueryTypes::CountATable, 'parts' => array('table' => $parsed['FROM'][0]['base_expr'], 'distinct' => $distinct, 'selected' => 'COUNT(*)'));
 

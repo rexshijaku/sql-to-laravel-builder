@@ -53,6 +53,16 @@ abstract class AbstractExtractor
         return (isset($parsed['FROM']) && count($parsed['FROM']) == 1 && $parsed['FROM'][0]['expr_type'] == 'table');
     }
 
+    function validCountTable($parsed)
+    {
+        $k = $parsed;
+        unset($k['SELECT']);
+        unset($k['FROM']);
+        // if has any other clause (e.g WHERE/HAVING/LIMIT)
+        // except those that were removed
+        // then it is not valid
+        return count($k) === 0;
+    }
     function validJoin($join_type)
     {
         return $this->getValue($join_type) != 'natural';
