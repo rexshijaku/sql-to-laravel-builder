@@ -12,7 +12,7 @@ Laravel 8
 ### Demo
 
 ##### Online demo
-Live demo and free usage is available <a href='https://sql-to-laravel-builder.herokuapp.com/'>here</a>.
+Live demo and free usage is available <a href='http://152.70.176.144/sql-to-laravel-builder/'>here</a>.
 
 ### Get Started
 ##### Install by manual download: 
