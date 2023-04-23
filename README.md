@@ -1,6 +1,10 @@
 # Marwan - SQL To Laravel Builder
 SQL to Laravel Query Builder, A Converter written in PHP
 
+## Support
+
+<a href="https://www.buymeacoffee.com/rexshijaku" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="50" width="180"></a>
+
 ### Features
 - Converts SQL Queries to Laravel Query Builder.
 - Assists on building queries as instructed in Laravel Documentation. 
